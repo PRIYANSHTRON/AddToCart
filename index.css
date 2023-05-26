@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Kumbh Sans', sans-serif;
+    /* background-color: rgba(212, 212, 212, 0.286); */
 }
 
 body{
@@ -53,6 +54,7 @@ body{
     padding: 5px;
     font-size: 21px;
     font-weight: 500;
+    background-color: azure;
 }
 
 #cat-image{
