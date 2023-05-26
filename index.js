@@ -1,5 +1,5 @@
-import {initializeApp} from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js'
-import { getDatabase, ref, push } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js'
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js'
+import { getDatabase, ref, push, onValue } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js'
 
 const appSettings = {
     databaseURL: "https://addtocart-feced-default-rtdb.asia-southeast1.firebasedatabase.app/",
@@ -24,8 +24,8 @@ const add_button = document.getElementById('add-button')
 add_button.addEventListener('click', function () {
     //pushes the value in DB
     let itemName = input_field.value
-    
-    push(items,input_field.value)
+
+    push(items, itemName)
     // argument 1 - reference
     // argument 2 - data to be pushed
 
@@ -34,15 +34,30 @@ add_button.addEventListener('click', function () {
     // if (itemName.length == 0)
     //     alert('error')
     // else   
-        appendItems(itemName)
-    
+    appendItems(itemName)
+
 
 })
 
-function clearInputField(){ 
-    input_field.value=""
- }
+function clearInputField() {
+    input_field.value = ""
+}
 
 function appendItems(itemName) {
+    console.log(itemName)
     document.getElementById('list').innerHTML += `<li>${itemName}</li>`
+
 }
+
+onValue(items, function (snapshot) {
+
+    let fetched_Items_Array = Object.values(snapshot.val())
+    console.log(fetched_Items_Array)
+
+
+    for (let i = 0; i < fetched_Items_Array.length; i++) {
+        
+        appendItems(fetched_Items_Array[i])
+        
+    }
+})
