@@ -36,7 +36,7 @@ function clearInputField() {
     input_field.value = ""
 }
 
-function appendItems(itemName) {
+function appendItems(itemName) { 
     console.log(itemName)
     document.getElementById('list').innerHTML += `<li>${itemName}</li>`
 
