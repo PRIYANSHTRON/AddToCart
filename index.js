@@ -30,13 +30,6 @@ add_button.addEventListener('click', function () {
     // argument 2 - data to be pushed
 
     clearInputField()
-
-    // if (itemName.length == 0)
-    //     alert('error')
-    // else   
-    appendItems(itemName)
-
-
 })
 
 function clearInputField() {
@@ -52,12 +45,15 @@ function appendItems(itemName) {
 onValue(items, function (snapshot) {
 
     let fetched_Items_Array = Object.values(snapshot.val())
+
+    document.getElementById('list').innerHTML=''
+    
     console.log(fetched_Items_Array)
 
 
     for (let i = 0; i < fetched_Items_Array.length; i++) {
         
         appendItems(fetched_Items_Array[i])
-        
+
     }
 })
