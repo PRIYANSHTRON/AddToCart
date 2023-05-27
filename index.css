@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Kumbh Sans', sans-serif;
-    /* background-color: rgba(212, 212, 212, 0.286); */
+    user-select: none;
 }
 
 body{
