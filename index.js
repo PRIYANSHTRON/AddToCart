@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js'
-import { getDatabase, ref, push, onValue, remove} from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js'
+import { getDatabase, ref, push, onValue, remove } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js'
 
 const appSettings = {
     databaseURL: "https://addtocart-feced-default-rtdb.asia-southeast1.firebasedatabase.app/",
@@ -36,18 +36,18 @@ function clearInputField() {
     input_field.value = ""
 }
 
-function appendItems(itemName) { 
-    
+function appendItems(itemName) {
+
     // document.getElementById('list').innerHTML += `<li>${itemName}</li>`
     let newItem = document.createElement("li")
 
     newItem.textContent = itemName[1]
     // console.log(newItem.textContent=itemName)
-    
+
     document.getElementById('list').appendChild(newItem)
 
     newItem.addEventListener('click', function () {
-        let itemToBeDeleted = ref(database,`items/${itemName[0]}`)
+        let itemToBeDeleted = ref(database, `items/${itemName[0]}`)
         if (confirm('Item will be deleted from the list \nAre you sure ?')) {
             remove(itemToBeDeleted)
         }
@@ -56,18 +56,20 @@ function appendItems(itemName) {
 
 onValue(items, function (snapshot) {
 
-    let fetched_Items_Array = Object.entries(snapshot.val())
+    if (snapshot.exists()) {
+        let fetched_Items_Array = Object.entries(snapshot.val())
 
-    document.getElementById('list').innerHTML=''
-    
-    // console.log(fetched_Items_Array)
+        document.getElementById('list').innerHTML = ''
 
+        for (let i = 0; i < fetched_Items_Array.length; i++) {
 
-    for (let i = 0; i < fetched_Items_Array.length; i++) {
-        
-        appendItems(fetched_Items_Array[i])
+            appendItems(fetched_Items_Array[i])
 
+        }
+    }
+    else {
+        document.getElementById('list').innerHTML='No items in the Cart'
     }
 
-    
+
 })
